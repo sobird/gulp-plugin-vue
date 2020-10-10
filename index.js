@@ -154,7 +154,7 @@ module.exports = function (options) {
 
         if (styled.errors && styled.errors.length) {
           log.error(
-            `\n  Error compiling style:\n${pad(styled.source)}\n` +
+            `\n  Error compiling style:\n` +
             styled.errors.map(e => `  - ${e}`).join('\n') +
             '\n'
           )
