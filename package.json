@@ -1,0 +1,33 @@
+{
+  "name": "gulp-plugin-vue",
+  "version": "0.0.1",
+  "description": "Gulp plugin for compiling Vue single file components",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com:sobird/gulp-plugin-vue.git"
+  },
+  "keywords": [
+    "gulpplugin",
+    "vue",
+    "sfc",
+    "component"
+  ],
+  "author": "sobird",
+  "license": "MIT",
+  "dependencies": {
+    "@vue/component-compiler-utils": "^3.2.0",
+    "hash-sum": "^2.0.0",
+    "loglevel": "^1.7.0",
+    "through2": "^4.0.2",
+    "vinyl-fs": "^3.0.3",
+    "vue-template-compiler": "^2.6.12"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "mocha": "^8.1.3"
+  }
+}
