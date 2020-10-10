@@ -2,6 +2,7 @@
  * gulp-plugin-vue
  * Gulp plugin for compiling Vue single file components
  * 
+ * @see https://github.com/vuejs/vue-loader
  * @see https://github.com/vuejs/component-compiler-utils
  * @see https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler
  * 
@@ -50,7 +51,7 @@ module.exports = function (options) {
 
     const scopeId = `data-v-${hash(filename)}`;
 
-    const isScoped = descriptor.styles.some(s => s.scoped);
+    const scoped = descriptor.styles.some(s => s.scoped);
     const isFunctional = descriptor.template && descriptor.template.attrs.functional;
 
     let script = [];
@@ -58,6 +59,7 @@ module.exports = function (options) {
 
     // script
     if (descriptor.script) {
+      // todo 需要babel处理
       script.push(descriptor.script.content);
     } else {
       script.push('module.exports = {};');
@@ -135,7 +137,7 @@ module.exports = function (options) {
       script.push('__vue__options__.functional = true;');
     }
 
-    if(isScoped) {
+    if(scoped) {
       script.push('__vue__options__._scopeId = ' + JSON.stringify(scopeId) + ';');
     }
 
@@ -147,7 +149,7 @@ module.exports = function (options) {
           filename,
           id: scopeId,
           //map: inMap,
-          scoped: isScoped,
+          scoped,
           trim: true,
           preprocessLang: style.lang || "css"
         });
@@ -164,7 +166,7 @@ module.exports = function (options) {
       }
     }
 
-    // 添加同名样式文件
+    // 同名样式文件
     if (styles.length) {
       let styleFile = file.clone();
       styleFile.contents = Buffer.from(styles.join('\n'));
@@ -173,10 +175,14 @@ module.exports = function (options) {
       this.push(styleFile);
     }
 
+    // 同名脚本文件
     file.contents = Buffer.from(script.join('\n'));
     file.extname = '.js';
 
     callback(null, file);
+  }, function(callback) {
+    // todo 
+    callback();
   });
 }
 
