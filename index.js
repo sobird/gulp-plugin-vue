@@ -71,7 +71,7 @@ module.exports = function (options) {
     script.push('} else {');
     script.push('  __vue__options__ = module.exports;');
     script.push('}');
-
+    script.push(`__vue__options__.__file = ${JSON.stringify(filename)};`);
     // template
     if (descriptor.template) {
       if (options.runtime) {
